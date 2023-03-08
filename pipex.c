@@ -6,7 +6,7 @@
 /*   By: gozturk <marvin@codam.nl>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/07 11:29:49 by gozturk       #+#    #+#                 */
-/*   Updated: 2023/03/07 15:20:22 by gozturk       ########   odam.nl         */
+/*   Updated: 2023/03/08 17:12:03 by gozturk       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void kiddo_process(int fd1, something about argv(cmd1))
 
 void parent_process(int fd2, something about cmd2)
 {
+	wait();
 	dup2(fd2, STDOUT_FILENO)
 	dup2(f[0], STDIN_FILENO)
 	close(f[1]);
