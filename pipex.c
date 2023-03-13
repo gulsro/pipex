@@ -6,13 +6,13 @@
 /*   By: gozturk <marvin@codam.nl>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/07 11:29:49 by gozturk       #+#    #+#                 */
-/*   Updated: 2023/03/08 17:12:03 by gozturk       ########   odam.nl         */
+/*   Updated: 2023/03/13 15:19:50 by gozturk       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-void pipex(int fd1, int fd2)
+void pipex(int fd1, int fd2, char *argv[], char *envp[])
 {
 	int 	f[2];
 	pid_t	p1;
@@ -31,7 +31,7 @@ void kiddo_process(int fd1, something about argv(cmd1))
 	dup2(f[1], STDOUT_FILENO); // everything will be written in f[1], so it ll be stdout
 	close(f[0]);
 	first check if the cmd1 exists access()
-	execve("/bin/ls", {"/bin/ls", "-l", NULL} so:array of strings, each string represents an argument to the process-NULL at the end>it tell execve where to ends array of string, $PATH(all posibble paths the program wil be seached) )
+	execve("/bin/ls", {"/bin/ls", "-l", NULL} so:array of strings, each string represents an argument to the process-NULL at the end>it tells execve where to ends array of string, $PATH(all posibble paths the program wil be seached) )
 	close(fd1);
 }
 
