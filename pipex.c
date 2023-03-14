@@ -25,17 +25,18 @@ void pipex(int fd1, int fd2, char *argv[], char *envp[])
         kiddo(fd1)
 }
 
-void kiddo_process(int fd1, something about argv(cmd1))
+void kiddo_process(int fd1, argv[2])
 {
 	dup2(fd1, STDIN_FILENO); //fd1 as stdin
 	dup2(f[1], STDOUT_FILENO); // everything will be written in f[1], so it ll be stdout
 	close(f[0]);
-	first check if the cmd1 exists access()
+//	first check if the cmd1 exists access()
+	
 	execve("/bin/ls", {"/bin/ls", "-l", NULL} so:array of strings, each string represents an argument to the process-NULL at the end>it tells execve where to ends array of string, $PATH(all posibble paths the program wil be seached) )
 	close(fd1);
 }
 
-void parent_process(int fd2, something about cmd2)
+void parent_process(int fd2, argv[3])
 {
 	wait();
 	dup2(fd2, STDOUT_FILENO)
