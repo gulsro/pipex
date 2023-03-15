@@ -16,16 +16,18 @@ void pipex(int fd1, int fd2, char *argv[], char *envp[])
 {
 	int 	f[2];
 	pid_t	p1;
+	pid_t	p2;
 
 	pipe(f);
 	p1 = fork();
-    if (p1 > 0)
-        parent(fd2)
-    else if (p1 == 0)
-        kiddo(fd1)
+    if (p1 == 0)
+        kiddo_1(fd1);
+    else if (p1 == -1)
+       // handle
+
 }
 
-void kiddo_process(int fd1, argv[2])
+void kiddo_1(int fd1, argv[2])
 {
 	dup2(fd1, STDIN_FILENO); //fd1 as stdin
 	dup2(f[1], STDOUT_FILENO); // everything will be written in f[1], so it ll be stdout
@@ -36,7 +38,7 @@ void kiddo_process(int fd1, argv[2])
 	close(fd1);
 }
 
-void parent_process(int fd2, argv[3])
+void kiddo_2(int fd2, argv[3])
 {
 	wait();
 	dup2(fd2, STDOUT_FILENO)
@@ -45,4 +47,9 @@ void parent_process(int fd2, argv[3])
 	check if cmd2 exists 
 	execute things cmd2
 	close(fd2);
+}
+
+void parent_process()
+{
+	
 }

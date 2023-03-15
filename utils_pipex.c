@@ -33,22 +33,40 @@ static	char	**get_path_from_envp(char *envp[])
 	}
 	len_path = ft_strlen(envp[i]);
 	str_all_paths = ft_substr(envp[i], 5, len_path - 5); //MM
-	lst_paths = ft_split(str_paths, ":"); //MM
+	lst_paths = protection(ft_split(str_paths, ":")); //MM
 	free(str_all_paths);
 	return (lst_paths);
 }
 
-static void	add_slash_to_end(char *lst_paths[])
+static	char *get_cmd_from_argv(char **argv, int argv_number)
 {
+	char	**lst_cmd;
+	char	*cmd;
 	int	i;
-	
+
 	i = 0;
-	while (lst_paths[i])
-	{
-		ft_strjoin(lst_paths[i], "/"); //MM
-		i++;
-	}
+	lst_cmd = protection(ft_split(argv[argv_number], ' '));
+	cmd = lst_cmd[0];
+	return (cmd);
 }
+
+static char *get_command_path(char **argv, char *lst_paths[], char *cmd)
+{
+	char	*with_slash;
+	char	*command;
+
+	while (*lst_paths)
+	{
+		with_slash = ft_strjoin(lst_paths[i], "/"); //MM
+		command = ft_strjoin(with_slash, cmd);
+		free(with_slash);
+		if (access(command, F_OK) == 0)
+			return (command);
+		free(command);
+		lst_paths++;
+	}
+	return (NULL);
+} //now we have a command path ready to use in exec.
 
 void	exec_cute(char *argv[], int argv_number, char *envp[])
 {
