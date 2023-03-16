@@ -13,7 +13,7 @@
 #include <unistd.h>
 #include "libft.h"
 
-static	char	**get_path_from_envp(char *envp[])
+static	char	**get_path_from_envp(char **envp)
 {
 	char	*lst_paths[];
 	char	*cmp_word;
@@ -35,26 +35,30 @@ static	char	**get_path_from_envp(char *envp[])
 	str_all_paths = ft_substr(envp[i], 5, len_path - 5); //MM
 	lst_paths = protection(ft_split(str_paths, ":")); //MM
 	free(str_all_paths);
-	return (lst_paths);
+	return (lst_paths); // {"/usr/local/bin", "/usr/bin", "/bin"}
 }
 
-static	char *get_cmd_from_argv(char **argv, int argv_number)
+static	char *get_cmd_from_argv(char **argv, int cmd_number)
 {
 	char	**lst_cmd;
 	char	*cmd;
 	int	i;
 
 	i = 0;
-	lst_cmd = protection(ft_split(argv[argv_number], ' '));
+	lst_cmd = protection(ft_split(argv[cmd_number], ' '));
 	cmd = lst_cmd[0];
-	return (cmd);
+	return (cmd); // ls
 }
 
-static char *get_command_path(char **argv, char *lst_paths[], char *cmd)
+static char *get_command_path(char **argv, int cmd_number, char **envp)
 {
+	char	**lst_paths;
 	char	*with_slash;
 	char	*command;
+	char	*cmd;
 
+	cmd = get_cmd_from_argv(argv, cmd_number);
+	lst_paths = get_path_from_envp(envp);
 	while (*lst_paths)
 	{
 		with_slash = ft_strjoin(lst_paths[i], "/"); //MM
@@ -65,25 +69,15 @@ static char *get_command_path(char **argv, char *lst_paths[], char *cmd)
 		free(command);
 		lst_paths++;
 	}
-	return (NULL);
+	//free lst_paths and cmd ??
+	free(with_slash);
+	return (NULL); ///usr/local/bin/ls
 } //now we have a command path ready to use in exec.
 
-void	exec_cute(char *argv[], int argv_number, char *envp[])
+void	exe_cute(char **argv, int cmd_number, char *envp[])
 {
-	char	*lst_paths[];
-	char	*list_cmd[];
-	char	*full_path;
-	int	i;
-	
-	i = 0;
-	lst_paths = get_path_from_envp(envp);
-//	lst_paths = ft_split(str_paths, ":"); //MM
-	add_slash_to_end(lst_paths); //MM
+	char	*command;
 
-	lst_cmd = ft_split(argv[argv_number], " ");
-	while (lst_paths[i])
-	{
-		ft_strjoin(lst_paths[i], )
-	}
-	execve();
+	command = get_command_path(argv, cmd_number, envp);
+	execve(command, argv, envp);
 }
