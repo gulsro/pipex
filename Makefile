@@ -2,7 +2,8 @@ NAME = pipex
 
 SRC = pipex.c \
 		utils_pipex.c \
-		main.c 
+	       error_functions.c \
+	       main.c
 
 HEADER = pipex.h
 
@@ -20,7 +21,7 @@ all:	$(NAME)
 
 $(NAME):	$(OBJ)
 	$(MAKE) -C $(LIBFT_DIR)
-	$(CC) $(CFLAGS) -O $(NAME) $(OBJ) $(LIBFT_DIR)/$(LIBFT)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT_DIR)/$(LIBFT)
 
 %.o: %.c $(HEARDER)
 	$(CC) -c $< -o $(<:.c=.o)
