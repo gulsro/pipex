@@ -5,12 +5,13 @@
 
 int main(int argc, char *argv[], char *envp[])
 {
-	int		fd1[2]; //writing in infile fd1[1], reading from fd1[0]
+	int		fd1[2];
 	int		fd2[2];
 	
-	fd1 = open((infile) argv[1], O_WRONLY);
-	fd2 = open((outfile) argv[4], O_RDONLY);
+	fd1 = open((infile) argv[1], O_RONLY);
+	fd2 = open((outfile) argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd1 < 0 || fd2 < 0)
 		exit(1);
 	pipex(f1, f2, argv, envp);
 }
+
