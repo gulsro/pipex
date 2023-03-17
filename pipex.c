@@ -12,7 +12,7 @@
 
 #include <unistd.h>
 
-void pipex(int fd1, int fd2, char *argv[], char *envp[])
+void pipex(int infile, int outfile, char *argv[], char *envp[])
 {
 	int 	f[2];
 	pid_t	p1; //kiddo_1
@@ -27,7 +27,7 @@ void pipex(int fd1, int fd2, char *argv[], char *envp[])
 	}
 	else if (p1 == 0)
 	{
-		kiddo_1(fd1, argv, 2, envp);
+		kiddo_1(infile, argv, 2, envp);
 	}
 	p2 = fork();
 	if (p2 == -1)
@@ -37,34 +37,37 @@ void pipex(int fd1, int fd2, char *argv[], char *envp[])
 	}
 	else if (p2 == 0)
 	{
-		kiddo_2(fd2, argv, 3, envp);
+		kiddo_2(outfile, argv, 3, envp);
 	}
 	else
-		waitpid(p1, )
+		parent(f, p1, p2);
 
 }
 
-void kiddo_1(int fd1, char **argv, int cmd_number, char **envp)
+void kiddo_1(int infile, int f[], char **argv, char **envp)
 {
-	dup2(fd1, STDIN_FILENO); //fd1 as stdin
+	dup2(infile, STDIN_FILENO); //infile as stdin
 	dup2(f[1], STDOUT_FILENO); // everything will be written in f[1], so it ll be stdout
 	close(f[0]);
-//	first check if the cmd1 exists access()
-	
        	exe_cute(argv, 2, envp);
-	close(fd1);
+	close(infile);
 }
 
-void kiddo_2(int fd2, char **argv, int cmd_number, char **envp)
+void kiddo_2(int outfile, int f[], char **argv, char **envp)
 {
-	dup2(fd2, STDOUT_FILENO)
+	dup2(outfile, STDOUT_FILENO)
 	dup2(f[0], STDIN_FILENO)
 	close(f[1]);
 	exe_cute(argv, 3, envp);
-	close(fd2);
+	close(outfile);
 }
 
-void parent_process()
+void parent_process(int f[], pid_t p1, pid_t p2)
 {
-	
+	int	exit_status;
+
+	waitpid(p1, NULL, 0);
+	waitpid(p2, &exit_status, 0);
+	if (exit_status != 0)
+		exit(127);
 }
