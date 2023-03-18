@@ -27,7 +27,7 @@
 void pipex(int infile, int outfile, char *argv[], char *envp[]);
 void kiddo_1(int infile, int f[], char **argv, char **envp);
 void kiddo_2(int outfile, int f[], char **argv, char **envp);
-void parent_process(int f[], pid_t p1, pid_t p2);
+void parent_process(int f[], int infile, int outfile, pid_t p1, pid_t p2);
 
 void    exe_cute(char **argv, int cmd_number, char *envp[]);
 

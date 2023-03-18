@@ -12,18 +12,22 @@
 
 #include "pipex.h"
 
-void pipex(int infile, int outfile, char *argv[], char *envp[])
+void pipex(int infile, int outfile, char **argv, char **envp)
 {
 	int 	f[2];
 	pid_t	p1; //kiddo_1
 	pid_t	p2; //kiddo_2
 
-	pipe(f);
+	if (pipe(f))
+	{
+		perror("");
+		exit(1);
+	}
 	p1 = fork();
 	if (p1 == -1)
 	{
 		perror("");
-    		exit(1);
+		exit(1);
 	}
 	else if (p1 == 0)
 	{
@@ -40,7 +44,7 @@ void pipex(int infile, int outfile, char *argv[], char *envp[])
 		kiddo_2(outfile, f, argv, envp);
 	}
 	else
-		parent_process(f, p1, p2);
+		parent_process(f, infile, outfile, p1, p2);
 }
 
 void kiddo_1(int infile, int f[], char **argv, char **envp)
@@ -61,10 +65,14 @@ void kiddo_2(int outfile, int f[], char **argv, char **envp)
 	close(outfile);
 }
 
-void parent_process(int f[], pid_t p1, pid_t p2)
+void parent_process(int f[], int infile, int outfile, pid_t p1, pid_t p2)
 {
 	int	exit_status;
-
+	
+	close(f[0]);
+	close(f[1]);
+	close(infile);
+	close(outfile);
 	waitpid(p1, NULL, 0);
 	waitpid(p2, &exit_status, 0);
 	if (exit_status != 0)
