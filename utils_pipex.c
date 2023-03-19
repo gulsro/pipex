@@ -14,14 +14,11 @@
 
 static	char	*get_path_from_envp(char **envp)
 {
-	char	**lst_paths;
 	char	*cmp_word;
 	char	*str_all_paths;
 	int	len_path;
-//	int	i;
 
 	cmp_word = "PATH=";
-//	i = 0;
 	while (*envp)
 	{
 		if (ft_strncmp(*envp, cmp_word, 5) == 0)
@@ -30,11 +27,7 @@ static	char	*get_path_from_envp(char **envp)
 		}
 		envp++;
 	}
-//	len_path = ft_strlen(envp[i]);
-//	str_all_paths = ft_substr(envp[i], 5, len_path - 5); //MM
 	str_all_paths = *envp + 5;
-//	lst_paths = protection(ft_split(str_all_paths, ':')); //MM
-//	free(str_all_paths);
 	return (str_all_paths);
 }
 
@@ -52,7 +45,7 @@ static	char *get_cmd_from_argv(char **argv, int cmd_number)
 	{
 		cmd = argv[cmd_number];
 	}
-	return (cmd); // ls
+	return (cmd);
 }
 
 static	char *get_command_path(char **argv, int cmd_number, char **envp)
@@ -68,7 +61,7 @@ static	char *get_command_path(char **argv, int cmd_number, char **envp)
 	path_array = protection(ft_split(lst_paths, ':'));
 	while (*path_array)
 	{
-		with_slash = ft_strjoin(*path_array, "/"); //MM
+		with_slash = ft_strjoin(*path_array, "/");
 		command = ft_strjoin(with_slash, cmd);
 		free(with_slash);
 		if (access(command, F_OK) == 0)
@@ -78,8 +71,8 @@ static	char *get_command_path(char **argv, int cmd_number, char **envp)
 		free(command);
 		path_array++;
 	}
-	return (NULL); ///usr/local/bin/ls
-} //now we have a command path ready to use in exec.
+	return (NULL);
+}
 
 void	exe_cute(char **argv, int cmd_number, char *envp[])
 {
