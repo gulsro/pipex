@@ -36,7 +36,7 @@ static	char *get_cmd_from_argv(char **argv, int cmd_number)
 	char	**lst_cmd;
 	char	*cmd;
 	
-	if (ft_strrchr(argv[cmd_number], ' '))
+	if (ft_strchr(argv[cmd_number], ' '))
 	{
 		lst_cmd = protection(ft_split(argv[cmd_number], ' '));
 		cmd = lst_cmd[0];
@@ -91,7 +91,7 @@ void	exe_cute(char **argv, int cmd_number, char *envp[])
 	if (execve(command, lst_cmd, envp))
 	{
 		perror("execve failed");
-		exit(1);
+		exit(127);
 	}
 	
 }

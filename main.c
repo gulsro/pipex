@@ -27,7 +27,11 @@ int main(int argc, char **argv, char **envp)
 		lst_cmd++;
 	}
 */
-	
+	if (argc != 5)
+	{
+		perror("wrong number of arguments");
+		exit(1);
+	}
 	infile = open(argv[1], O_RDONLY);
 	outfile = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (infile < 0)
@@ -46,6 +50,5 @@ int main(int argc, char **argv, char **envp)
 		exit(1);
 	}
 	pipex(infile, outfile, argv, envp);
-
 }
 

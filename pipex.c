@@ -49,20 +49,26 @@ void pipex(int infile, int outfile, char **argv, char **envp)
 
 void kiddo_1(int infile, int f[], char **argv, char **envp)
 {
-	dup2(infile, STDIN_FILENO); //infile as stdin
-	dup2(f[1], STDOUT_FILENO); // everything will be written in f[1], so it ll be stdout
+	if (dup2(infile, STDIN_FILENO) < 0 || dup2(f[1], STDOUT_FILENO) < 0)
+	{
+		perror("dup2 failed");
+		exit(1);
+	}
 	close(f[0]);
-       	exe_cute(argv, 2, envp);
-	close(infile);
+       	close(infile);
+	exe_cute(argv, 2, envp);
 }
 
 void kiddo_2(int outfile, int f[], char **argv, char **envp)
 {
-	dup2(outfile, STDOUT_FILENO);
-	dup2(f[0], STDIN_FILENO);
+	if (dup2(outfile, STDOUT_FILENO) < 0 || dup2(f[0], STDIN_FILENO) < 0)
+	{
+		perror("dup2 failed");
+		exit(1);
+	}
 	close(f[1]);
-	exe_cute(argv, 3, envp);
 	close(outfile);
+	exe_cute(argv, 3, envp);
 }
 
 void parent_process(int f[], int infile, int outfile, pid_t p1, pid_t p2)
@@ -71,12 +77,12 @@ void parent_process(int f[], int infile, int outfile, pid_t p1, pid_t p2)
 	
 	close(f[0]);
 	close(f[1]);
-	close(infile);
-	close(outfile);
 	waitpid(p1, NULL, 0);
 	waitpid(p2, &exit_status, 0);
 	if (exit_status != 0)
 	{
 		exit(127);
 	}
+	close(infile);
+        close(outfile);
 }
