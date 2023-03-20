@@ -84,7 +84,10 @@ void	exe_cute(char **argv, int cmd_number, char *envp[])
 	lst_cmd = protection(ft_split(argv[cmd_number], ' '));
 	command = get_command_path(argv, cmd_number, envp);
 	if (!command)
+	{
+		perror("command cant be found");
 		exit(1);
+	}
 	if (execve(command, lst_cmd, envp))
 	{
 		perror("execve failed");

@@ -33,13 +33,18 @@ int main(int argc, char **argv, char **envp)
 	if (infile < 0)
 	{
 		infile = open(argv[1], O_RDONLY | O_CREAT, 0644);
-		if (infile < 0)
-		{
-			exit(1);
-		}
 	}
-	if (infile < 0 || outfile < 0)
+	if (infile < 0)
+	{
+		perror("");
 		exit(1);
+	}
+	if (outfile < 0)
+	{
+		close(infile);
+		perror("");
+		exit(1);
+	}
 	pipex(infile, outfile, argv, envp);
 
 }
