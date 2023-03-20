@@ -18,16 +18,14 @@ void pipex(int infile, int outfile, char **argv, char **envp)
 	pid_t	p1; //kiddo_1
 	pid_t	p2; //kiddo_2
 
-	if (pipe(f))
+	if (pipe(f) < 0)
 	{
-		perror("");
-		exit(1);
+		msg_exit("pipe() failed" ,1);
 	}
 	p1 = fork();
 	if (p1 == -1)
 	{
-		perror("");
-		exit(1);
+		msg_exit("fork() failed", 1);
 	}
 	else if (p1 == 0)
 	{
@@ -36,8 +34,7 @@ void pipex(int infile, int outfile, char **argv, char **envp)
 	p2 = fork();
 	if (p2 == -1)
 	{
-		perror("");
-		exit(1);
+		msg_exit("fork() failed", 1);
 	}
 	else if (p2 == 0)
 	{
@@ -51,8 +48,7 @@ void kiddo_1(int infile, int f[], char **argv, char **envp)
 {
 	if (dup2(infile, STDIN_FILENO) < 0 || dup2(f[1], STDOUT_FILENO) < 0)
 	{
-		perror("dup2 failed");
-		exit(1);
+		msg_exit("dup2() failed", 1);
 	}
 	close(f[0]);
        	close(infile);
@@ -63,8 +59,7 @@ void kiddo_2(int outfile, int f[], char **argv, char **envp)
 {
 	if (dup2(outfile, STDOUT_FILENO) < 0 || dup2(f[0], STDIN_FILENO) < 0)
 	{
-		perror("dup2 failed");
-		exit(1);
+		msg_exit("dup2() failed", 1);
 	}
 	close(f[1]);
 	close(outfile);
@@ -81,7 +76,7 @@ void parent_process(int f[], int infile, int outfile, pid_t p1, pid_t p2)
 	waitpid(p2, &exit_status, 0);
 	if (exit_status != 0)
 	{
-		exit(127);
+		msg_exit("", 127);
 	}
 	close(infile);
         close(outfile);
