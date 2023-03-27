@@ -14,9 +14,9 @@
 
 static	char	*get_path_from_envp(char **envp)
 {
+	int	len_path;
 	char	*cmp_word;
 	char	*str_all_paths;
-	int	len_path;
 
 	cmp_word = "PATH=";
 	while (*envp)
@@ -31,11 +31,11 @@ static	char	*get_path_from_envp(char **envp)
 	return (str_all_paths);
 }
 
-static	char *get_cmd_from_argv(char **argv, int cmd_number)
+static	char	*get_cmd_from_argv(char **argv, int cmd_number)
 {
 	char	**lst_cmd;
 	char	*cmd;
-	
+
 	if (ft_strchr(argv[cmd_number], ' '))
 	{
 		lst_cmd = protection(ft_split(argv[cmd_number], ' '));
@@ -48,7 +48,7 @@ static	char *get_cmd_from_argv(char **argv, int cmd_number)
 	return (cmd);
 }
 
-static	char *get_command_path(char **argv, int cmd_number, char **envp)
+static	char	*get_command_path(char **argv, int cmd_number, char **envp)
 {
 	char	*lst_paths;
 	char	**path_array;
@@ -71,6 +71,8 @@ static	char *get_command_path(char **argv, int cmd_number, char **envp)
 		free(command);
 		path_array++;
 	}
+	free(path_array);
+	free(lst_paths);
 	return (NULL);
 }
 
@@ -78,8 +80,7 @@ void	exe_cute(char **argv, int cmd_number, char *envp[])
 {
 	char	*command;
 	char	**lst_cmd;
-	char    **lst_cmd_with_null;
-	int i = 0;
+	char	**lst_cmd_with_null;
 
 	lst_cmd = protection(ft_split(argv[cmd_number], ' '));
 	command = get_command_path(argv, cmd_number, envp);

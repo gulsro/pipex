@@ -12,4 +12,3 @@ char	**protection(char **value)
 		exit(1);
 	return (value);
 }
-
