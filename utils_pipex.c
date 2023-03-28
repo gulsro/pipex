@@ -6,7 +6,7 @@
 /*   By: gozturk <marvin@codam.nl>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/08 13:22:33 by gozturk       #+#    #+#                 */
-/*   Updated: 2023/03/28 13:13:19 by gozturk       ########   odam.nl         */
+/*   Updated: 2023/03/28 19:39:58 by gozturk       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static	char	*get_cmd_from_argv(char **argv, int cmd_number)
 
 	if (ft_strchr(argv[cmd_number], ' '))
 	{
-		lst_cmd = protection(ft_split(argv[cmd_number], ' '));
+		lst_cmd = protect_double(ft_split(argv[cmd_number], ' '));
 		cmd = lst_cmd[0];
 	}
 	else
@@ -58,11 +58,11 @@ static	char	*get_command_path(char **argv, int cmd_number, char **envp)
 
 	cmd = get_cmd_from_argv(argv, cmd_number);
 	lst_paths = get_path_from_envp(envp);
-	path_array = protection(ft_split(lst_paths, ':'));
+	path_array = protect_double(ft_split(lst_paths, ':'));
 	while (*path_array)
 	{
-		with_slash = ft_strjoin(*path_array, "/");
-		command = ft_strjoin(with_slash, cmd);
+		with_slash = protect_single(ft_strjoin(*path_array, "/"));
+		command = protect_single(ft_strjoin(with_slash, cmd));
 		free(with_slash);
 		if (access(command, F_OK) == 0)
 		{
@@ -82,7 +82,7 @@ void	exe_cute(char **argv, int cmd_number, char *envp[])
 	char	**lst_cmd;
 	char	**lst_cmd_with_null;
 
-	lst_cmd = protection(ft_split(argv[cmd_number], ' '));
+	lst_cmd = protect_double(ft_split(argv[cmd_number], ' '));
 	command = get_command_path(argv, cmd_number, envp);
 	if (!command)
 	{

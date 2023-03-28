@@ -6,7 +6,7 @@
 /*   By: gozturk <marvin@codam.nl>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/07 11:26:57 by gozturk       #+#    #+#                 */
-/*   Updated: 2023/03/07 11:29:40 by gozturk       ########   odam.nl         */
+/*   Updated: 2023/03/28 19:38:17 by gozturk       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ void	parent_process(int f[], pid_t p1, pid_t p2);
 
 void	exe_cute(char **argv, int cmd_number, char *envp[]);
 
-char	**protection(char **value);
+char	**protect_double(char **value);
+char	*protect_single(char *value);
 void	msg_exit(char *msg, int exit_status);
 
 #endif
