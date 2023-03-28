@@ -14,7 +14,6 @@
 
 static	char	*get_path_from_envp(char **envp)
 {
-	int		len_path;
 	char	*cmp_word;
 	char	*str_all_paths;
 
@@ -71,8 +70,7 @@ static	char	*get_command_path(char **argv, int cmd_number, char **envp)
 		free(command);
 		path_array++;
 	}
-	free(path_array);
-	free(lst_paths);
+//	free(path_array);
 	return (NULL);
 }
 
@@ -80,7 +78,6 @@ void	exe_cute(char **argv, int cmd_number, char *envp[])
 {
 	char	*command;
 	char	**lst_cmd;
-	char	**lst_cmd_with_null;
 
 	lst_cmd = protect_double(ft_split(argv[cmd_number], ' '));
 	command = get_command_path(argv, cmd_number, envp);

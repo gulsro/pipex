@@ -9,7 +9,7 @@ HEADER = pipex.h
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror -g 
+CFLAGS = -Wall -Wextra -Werror  
 
 OBJ = $(SRC:.c=.o)
 
@@ -24,7 +24,7 @@ $(NAME):	$(OBJ)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT_DIR)/$(LIBFT)
 
 %.o: %.c $(HEARDER)
-	$(CC) -c $< -o $(<:.c=.o)
+	$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
 
 clean:
 	$(MAKE) -C $(LIBFT_DIR) clean

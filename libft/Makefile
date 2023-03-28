@@ -59,7 +59,7 @@ SRCB = ft_lstnew_bonus.c \
 
 CC = cc
 
-CFLAGS = -Wall -Werror -Wextra -g
+CFLAGS = -Wall -Werror -Wextra
 
 OBJ = $(SRC:.c=.o)
 
