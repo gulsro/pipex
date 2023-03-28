@@ -6,7 +6,7 @@
 /*   By: gozturk <marvin@codam.nl>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/08 13:22:33 by gozturk       #+#    #+#                 */
-/*   Updated: 2023/03/13 15:20:24 by gozturk       ########   odam.nl         */
+/*   Updated: 2023/03/28 13:13:19 by gozturk       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static	char	*get_path_from_envp(char **envp)
 {
-	int	len_path;
+	int		len_path;
 	char	*cmp_word;
 	char	*str_all_paths;
 

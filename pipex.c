@@ -6,7 +6,7 @@
 /*   By: gozturk <marvin@codam.nl>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/07 11:29:49 by gozturk       #+#    #+#                 */
-/*   Updated: 2023/03/13 15:19:50 by gozturk       ########   odam.nl         */
+/*   Updated: 2023/03/28 13:13:08 by gozturk       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	pipex(int infile, int outfile, char **argv, char **envp)
 {
-	int	f[2];
+	int		f[2];
 	pid_t	p1;
 	pid_t	p2;
 
