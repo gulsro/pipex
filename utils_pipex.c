@@ -6,7 +6,7 @@
 /*   By: gozturk <marvin@codam.nl>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/08 13:22:33 by gozturk       #+#    #+#                 */
-/*   Updated: 2023/03/28 19:39:58 by gozturk       ########   odam.nl         */
+/*   Updated: 2023/03/29 21:13:41 by gozturk       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,18 @@ static	char	*get_cmd_from_argv(char **argv, int cmd_number)
 
 static	char	*get_command_path(char **argv, int cmd_number, char **envp)
 {
-	char	*lst_paths;
 	char	**path_array;
 	char	*with_slash;
 	char	*command;
 	char	*cmd;
+	int		i;
 
+	i = 0;
 	cmd = get_cmd_from_argv(argv, cmd_number);
-	lst_paths = get_path_from_envp(envp);
-	path_array = protect_double(ft_split(lst_paths, ':'));
-	while (*path_array)
+	path_array = protect_double(ft_split(get_path_from_envp(envp), ':'));
+	while (path_array[i])
 	{
-		with_slash = protect_single(ft_strjoin(*path_array, "/"));
+		with_slash = protect_single(ft_strjoin(path_array[i], "/"));
 		command = protect_single(ft_strjoin(with_slash, cmd));
 		free(with_slash);
 		if (access(command, F_OK) == 0)
@@ -68,9 +68,9 @@ static	char	*get_command_path(char **argv, int cmd_number, char **envp)
 			return (command);
 		}	
 		free(command);
-		path_array++;
+		i++;
 	}
-//	free(path_array);
+	free(path_array);
 	return (NULL);
 }
 
