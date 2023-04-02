@@ -9,7 +9,7 @@ HEADER = pipex.h
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror  
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g 
 
 OBJ = $(SRC:.c=.o)
 

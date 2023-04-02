@@ -26,6 +26,8 @@ static	char	*get_path_from_envp(char **envp)
 		}
 		envp++;
 	}
+//	if (!envp)
+//		msg_exit("cmd not found", 127);
 	str_all_paths = *envp + 5;
 	return (str_all_paths);
 }
@@ -57,10 +59,10 @@ static	char	*get_command_path(char **argv, int cmd_number, char **envp)
 
 	i = 0;
 	cmd = get_cmd_from_argv(argv, cmd_number);
-//	path_array = protect_double(ft_split(get_path_from_envp(envp), ':'));
-	path_array = ft_split(get_path_from_envp(envp), ':');
+	path_array = protect_double(ft_split(get_path_from_envp(envp), ':'));
+/*	path_array = ft_split(get_path_from_envp(envp), ':');
 	if (!path_array)
-		msg_exit("command cant be found", 127);
+		msg_exit("command cant be found", 127);*/
 	while (path_array[i])
 	{
 		with_slash = protect_single(ft_strjoin(path_array[i], "/"));
