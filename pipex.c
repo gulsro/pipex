@@ -70,6 +70,6 @@ void	parent_process(int f[], pid_t p1, pid_t p2)
 	waitpid(p2, &exit_status, 0);
 	if (exit_status != 0)
 	{
-		msg_exit("execution p2 failed", 127);
+		msg_exit("", 127);
 	}
 }
