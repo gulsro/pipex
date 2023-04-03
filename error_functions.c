@@ -31,12 +31,3 @@ char	*protect_single(char *value)
 		exit(1);
 	return (value);
 }
-/*
-void	free_path_array(char **path_array)
-{
-	int	i;
-
-	i = 0;
-	while (path_array[i])
-		free(path_array[i]);
-}*/
