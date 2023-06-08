@@ -6,7 +6,7 @@
 /*   By: gozturk <marvin@codam.nl>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/28 13:11:20 by gozturk       #+#    #+#                 */
-/*   Updated: 2023/03/28 20:26:23 by gozturk       ########   odam.nl         */
+/*   Updated: 2023/06/08 15:30:33 by gozturk       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,15 @@
 
 void	msg_exit(char	*msg, int exit_status)
 {
-	perror(msg);
+	//perror(msg);
+	int	i;
+
+	i = 0;
+	while (msg[i] != '\0')
+	{
+		write(2, &msg[i], 1);
+		i++;
+	}
 	exit(exit_status);
 }
 
