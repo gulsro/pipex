@@ -14,7 +14,6 @@
 
 void	msg_exit(char	*msg, int exit_status)
 {
-	//perror(msg);
 	int	i;
 
 	i = 0;
