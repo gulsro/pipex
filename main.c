@@ -28,5 +28,5 @@ int	main(int argc, char **argv, char **envp)
 	{
 		perror("errors");
 	}
-	pipex(infile, outfile, argv, envp);
+	pipex(infile, outfile, argc, argv, envp);
 }
